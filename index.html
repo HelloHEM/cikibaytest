@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP and Location Tracker</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        #info { margin-top: 20px; font-size: 18px; }
+    </style>
+</head>
+<body>
+    <h1>IP and Location Tracker</h1>
+    <p>This page displays your approximate IP address and location based on public data.</p>
+    <div id="info">Loading...</div>
+
+    <script>
+        // Fetch IP and location using ipapi.co (free, no API key needed for basic use)
+        fetch('https://ipapi.co/json/')
+            .then(response => response.json())
+            .then(data => {
+                const info = `
+                    <strong>IP Address:</strong> ${data.ip}<br>
+                    <strong>City:</strong> ${data.city}<br>
+                    <strong>Region:</strong> ${data.region}<br>
+                    <strong>Country:</strong> ${data.country_name}<br>
+                    <strong>Latitude:</strong> ${data.latitude}<br>
+                    <strong>Longitude:</strong> ${data.longitude}
+                `;
+                document.getElementById('info').innerHTML = info;
+            })
+            .catch(error => {
+                document.getElementById('info').innerHTML = 'Error fetching data. Check your internet connection.';
+                console.error('Error:', error);
+            });
+    </script>
+</body>
+</html>
